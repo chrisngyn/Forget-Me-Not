@@ -25,7 +25,7 @@ export default class TodoList extends React.Component {
 
     addTodo = (todo) => {
         this.setState({ // don't want to update and replace previous text. only want to update and append something. how? add, then copy rest over
-            state: [todo, ...this.state.entries]
+            entries: [todo, ...this.state.entries]
         })
     }
 
@@ -33,7 +33,7 @@ export default class TodoList extends React.Component {
         return(
             <div>
                 <TodoForm onSubmit={this.addTodo}/>
-                {this.state.entries.map(todo => (<div></div>))}
+                {this.state.entries.map(todo => (<div key={todo.id}>{todo.text}</div>))}
             </div>
         )
     }
