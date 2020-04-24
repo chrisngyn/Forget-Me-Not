@@ -1,5 +1,6 @@
 import React from "react";
 import TodoForm from './TodoForm';
+import Todo from './Entries';
 
 /*
 Todo List App Requirements - courtesy of https://www.youtube.com/watch?v=I6IY2TqnPDA:
@@ -29,11 +30,31 @@ export default class TodoList extends React.Component {
         })
     }
 
+    toggleComplete = (id) => {
+        this.setState({
+            entries: this.state.entries.map(todo => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        complete: !todo.complete
+                    }
+                } else {
+                    return todo;
+                }
+            })
+        })
+    }
+
     render() {
         return(
             <div>
                 <TodoForm onSubmit={this.addTodo}/>
-                {this.state.entries.map(todo => (<div key={todo.id}>{todo.text}</div>))}
+                {this.state.entries.map(todo => (
+                    <Todo 
+                    key={todo.id}
+                    toggleComplete={() => this.toggleComplete(todo.id)}
+                    text={todo.text} />
+                ))}
             </div>
         )
     }
