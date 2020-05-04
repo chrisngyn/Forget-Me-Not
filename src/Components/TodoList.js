@@ -73,6 +73,12 @@ export default class TodoList extends React.Component {
         })
     }
 
+    deleteComplete = () => {
+        this.setState({
+            entries: this.state.entries.filter(element => element.complete === false)
+        })
+    }
+
     render() {
         let display = [];
 
@@ -100,6 +106,7 @@ export default class TodoList extends React.Component {
                     <button onClick={this.toggleAll}>Show ALL</button>
                     <button onClick={this.toggleActive}>Show ACTIVE</button>
                     <button onClick={this.toggleComplete}>Show COMPLETED</button>
+                    <button onClick={this.deleteComplete}>Delete COMPLETED</button>
                 </div>
 
 
