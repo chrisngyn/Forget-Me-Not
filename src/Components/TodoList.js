@@ -49,6 +49,12 @@ export default class TodoList extends React.Component {
         })
     }
 
+    delete = (id) => {
+        this.setState({
+            entries: this.state.entries.filter(element => element.id != id) // when using filter the argument is a boolean expression, if true add it
+        })
+    }
+
     toggleAll = () => {
         this.setState({
             currentState: "all"
@@ -102,6 +108,7 @@ export default class TodoList extends React.Component {
                         <Entry
                             key={element.id}
                             completeEntry={() => this.completeEntry(element.id)} // pass a function as one of the prop fields so we can update
+                            delete={() => this.delete(element.id)}
                             element={element}/> // we send the object entry over to Entry
                     ))
                 }
