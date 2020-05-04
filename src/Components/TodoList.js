@@ -12,7 +12,7 @@ Todo List app requirements - courtesy of https://www.youtube.com/watch?v=I6IY2Tq
 5. filter all / complete / active
 6. delete entries
 7. delete all completed ones - this option is only available if at least one IS completed
-8. button to toggle all on / off
+8. button to toggle all to complete / all to incomplete
 */
 
 export default class TodoList extends React.Component {
@@ -73,6 +73,26 @@ export default class TodoList extends React.Component {
         })
     }
 
+    makeComplete = () => {
+        this.setState({
+            entries: this.state.entries.map(element => ({
+                id: element.id,
+                text: element.text,
+                complete: true
+            }))
+        })
+    }
+
+    makeIncomplete = () => {
+        this.setState({
+            entries: this.state.entries.map(element => ({
+                id: element.id,
+                text: element.text,
+                complete: false
+            }))
+        })
+    }
+
     deleteComplete = () => {
         this.setState({
             entries: this.state.entries.filter(element => element.complete === false)
@@ -106,8 +126,16 @@ export default class TodoList extends React.Component {
                     <button onClick={this.toggleAll}>Show ALL</button>
                     <button onClick={this.toggleActive}>Show ACTIVE</button>
                     <button onClick={this.toggleComplete}>Show COMPLETED</button>
-                    <button onClick={this.deleteComplete}>Delete COMPLETED</button>
+                    <button onClick={this.makeComplete}>Mark all COMPLETED</button>
+                    <button onClick={this.makeIncomplete}>Make all INCOMPLETED</button>
                 </div>
+
+                {
+                    this.state.entries.filter(e => e.complete).length ? // if there IS a length to the number of completed todos, render. else, don't
+                    <div>
+                        <button onClick={this.deleteComplete}>Delete COMPLETED</button>
+                    </div> : null
+                }
 
 
                 {
